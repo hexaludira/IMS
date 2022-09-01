@@ -3,7 +3,7 @@
 use CodeIgniter\Controller;
 use App\Models\UserModel;
 
-class Login extends Controller
+class Auth extends Controller
 {
 	public function __construct()
 	{
@@ -13,9 +13,31 @@ class Login extends Controller
 
 	}
 
-	public function index(){
-		helper(['form']);
-		echo view('login');
+	// public function index(){
+	// 	helper(['form']);
+	// 	echo view('login');
+	// }
+
+	public function login()
+	{
+		return view('login');
+	}
+
+	public function register()
+	{
+		return view('register');
+	}
+
+	public function valid_register(){
+		$data = $this->request->getPost();
+
+		$this->validation->run($data, 'register');
+
+		$errors = $this->validation->getErrors();
+
+		if($errors) {
+			session()->setFlashdata('error', $errors);
+		}
 	}
 
 	public function valid_login(){

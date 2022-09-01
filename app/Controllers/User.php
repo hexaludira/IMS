@@ -12,7 +12,15 @@ class User extends BaseController
 		$this->session = session();
 	}
 
-	
+	public function index()
+	{
+		if(!this->session->has('isLogin')){
+			return redirect()->to('auth/login');
+		}
+
+		return view('user/index');
+	}
+
 }
 
 
