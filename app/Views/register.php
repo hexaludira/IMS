@@ -27,43 +27,43 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="../../images/logo.svg" alt="logo">
+                <img src="<?=base_url('assets');?>/images/HWP.png" alt="logo">
               </div>
-              <h4>New here?</h4>
-              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-              <form class="pt-3">
+              <h4>Hari gini belum punya akun?</h4>
+              <h6 class="font-weight-light">Ayo daftar lurr...</h6>
+              <form method="POST" class="pt-3" action="<?= base_url('Auth/valid_register')?>">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" name="username" required>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
-                </div>
+                </div> -->
                 <div class="form-group">
-                  <select class="form-control form-control-lg" id="exampleFormControlSelect2">
-                    <option>Country</option>
-                    <option>United States of America</option>
-                    <option>United Kingdom</option>
-                    <option>India</option>
-                    <option>Germany</option>
-                    <option>Argentina</option>
+                  <select class="form-control form-control-lg" id="exampleFormControlSelect2" name="divisi">
+                    <option value="" disabled selected>Pilih divisi</option>
+                    <option value="Administrasi">Administrasi</option>
+                    <option value="Infra">Infra</option>
+                    <option value="Security">Security</option>
+                    <option value="Aplikasi">Aplikasi</option>
+                    <option value="Multi Tasking">Multi Tasking</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
                 </div>
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                   <div class="form-check">
                     <label class="form-check-label text-muted">
                       <input type="checkbox" class="form-check-input">
                       I agree to all Terms & Conditions
                     </label>
                   </div>
-                </div>
+                </div> -->
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="">SIGN UP</a>
+                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">DAFTAR</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Sudah punya akun? <a href="<?=base_url('Login');?>" class="text-primary">Login</a>
+                  Sudah punya akun? <a href="<?=base_url('auth/login');?>" class="text-primary">Login</a>
                 </div>
               </form>
             </div>

@@ -4,17 +4,17 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    // public function index()
-    // {
-    //     return view('welcome_message');
-    // }
-
     public function index()
     {
-        $data['page'] = 'incident_list';
-        //$this->load->view('layout', $data);  => For CI3
-        echo view('layout', $data); //for CI4
+        echo view('login');
     }
+
+    // public function index()
+    // {
+    //     $data['page'] = 'incident_list';
+    //     //$this->load->view('layout', $data);  => For CI3
+    //     echo view('layout', $data); //for CI4
+    // }
 
     public function coba()
     {
@@ -33,6 +33,7 @@ class Home extends BaseController
 
     public function incident_list()
     {
+
         $data['page'] = 'incident_list';
         echo view('layout', $data);
     }

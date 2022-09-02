@@ -1,15 +1,17 @@
 <?php namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use App\Models\UserModel;
+use App\Models\user_model;
 
 class Auth extends Controller
 {
 	public function __construct()
 	{
-		$this->userModel = new UserModel();
+		$this->userModel = new user_model();
 
 		$this->validation = \Config\Services::validation();
+
+		$this->session = \Config\Services::session();
 
 	}
 
@@ -31,23 +33,67 @@ class Auth extends Controller
 	public function valid_register(){
 		$data = $this->request->getPost();
 
-		$this->validation->run($data, 'register');
+		// $this->validation->run($data, base_url('Auth/register'));
 
-		$errors = $this->validation->getErrors();
+		// $errors = $this->validation->getErrors();
 
-		if($errors) {
-			session()->setFlashdata('error', $errors);
-		}
+		// if($errors) {
+		// 	session()->setFlashdata('error', $errors);
+		// 	return redirect()->to(base_url('Auth/register'));
+		// }
+
+		$salt = uniqid('', true);
+
+		//gabung password dengan salt
+		$password = md5($data['password']).$salt;
+
+		//input ke DB
+		$this->userModel->save([
+			'user_id' => '',
+			'user_name' => $data['username'],
+			'user_password' => $password,
+			'user_divisi' => $data['divisi'],
+			'salt' => $salt,
+			'role' => 2
+		]);
+
+		//arahkan ke halaman login
+		session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan Login');
+
+		return redirect()->to(base_url('Auth/login'));
 	}
 
 	public function valid_login(){
 		$data = $this->request->getPost();
 
 		$user = $this->userModel->where('user_name', $data['username'])->first();
+		//$hash = md5($data['password']).$user['salt'];
 
 		if($user){
-			if($user['password'] != md5($data['user_password']))
+			if($user['user_password'] != md5($data['password']).$user['salt']){
+				session()->setFlashData('password', $user['salt']);
+				return redirect()->to(base_url('Auth/login'));
+			}
+			else {
+				$sessLogin = [
+					'isLogin' => true,
+					'username' => $user['user_name'],
+					'role' => $user['role']
+				];
+
+				$this->session->set($sessLogin);
+				return redirect()->to(base_url('User'));
+				}
+			}
+			else {
+				session()->setFlashdata('username', 'Username tidak ditemukan');
+				return redirect()->to(base_url('Auth/login'));
+			}
 		}
+
+	public function logout(){
+		$this->session->destroy();
+		return redirect()->to('login');
 	}
 
 	// public function auth(){

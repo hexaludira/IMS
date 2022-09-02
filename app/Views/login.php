@@ -20,6 +20,13 @@
 </head>
 
 <body>
+  <?php 
+    $session = session();
+    $login = $session->getFlashData('login');
+    $username = $session->getFlashData('username');
+    $password = $session->getFlashData('password');
+
+  ?>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
@@ -31,15 +38,28 @@
               </div>
               <h4>Silahkan Login</h4>
               <!-- <h6 class="font-weight-light">Sign in to continue.</h6> -->
-              <form class="pt-3">
+              <?php if($username){?>
+                <p style="color:red"><?= $username?></p>
+              <?php } ?>
+
+              <?php if($password){?>
+                <p style="color:red"><?= $password?></p>
+              <?php } ?>
+
+              <?php if($login) { ?>
+                <p style="color:green"><?= $login ?></p>
+              <?php } ?>
+              
+              <form class="pt-3" method="POST" action="<?= base_url('Auth/valid_login')?>">
+                <?= base_url('Auth/valid_login')?>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="username" required>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password" required>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >SIGN IN</a>
+                  <button type="submit" name='login' class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >MASUK</button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <!-- <div class="form-check">
@@ -56,7 +76,7 @@
                   </button>
                 </div> -->
                 <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                  Belum punya akun? <a href="<?= base_url('auth/register');?>" class="text-primary">Daftar</a>
                 </div>
               </form>
             </div>

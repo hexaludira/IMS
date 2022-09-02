@@ -7,18 +7,19 @@ namespace App\Controllers;
 class User extends BaseController
 {
 	
-	public function __construct
+	public function __construct()
 	{
 		$this->session = session();
 	}
 
 	public function index()
 	{
-		if(!this->session->has('isLogin')){
-			return redirect()->to('auth/login');
+		$data['page'] = 'incident_list';
+		if(!$this->session->has('isLogin')){
+			return redirect()->to(base_url('Auth/login'));
 		}
 
-		return view('user/index');
+		echo view('layout', $data);
 	}
 
 }
