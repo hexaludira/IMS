@@ -5,11 +5,12 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Incident Management System</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="<?=base_url('assets');?>/vendors/feather/feather.css">
   <link rel="stylesheet" href="<?=base_url('assets');?>/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="<?=base_url('assets');?>/vendors/css/vendor.bundle.base.css">
+  
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="<?=base_url('assets');?>/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -19,7 +20,42 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="<?=base_url('assets');?>/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="<?=base_url('assets');?>/images/favicon.png" />
+  <link rel="shortcut icon" href="<?=base_url('assets');?>/images/HWP.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.6/css/selectize.bootstrap4.css">
+
+  <link rel="stylesheet" href="<?=base_url('assets');?>/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="<?=base_url('assets');?>/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue2-timepicker@1.1.6/dist/VueTimepicker.css">
+
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="<?=base_url('assets');?>/vendors/js/vendor.bundle.base.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vuejs-datepicker"></script>
+  <script src="https://unpkg.com/vue2-timepicker@1.1.6/dist/VueTimepicker.common.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sifter/0.4.1/sifter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microplugin/0.0.3/microplugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.6/js/selectize.min.js"></script>
+
+  
+  <!-- <link href="<?= base_url('assets');?>/vendors/select2-bootstrap-theme/select2-bootstrap.min.css" rel="stylesheet" />
+  <link href="<?= base_url('assets');?>/vendors/select2/select2.min.css" rel="stylesheet" /> -->
+
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  
+
+
+  
+  <!-- <script src="<?=base_url('assets');?>/vendors/js/vendor.bundle.base.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
+
+  
+  
+  <!-- <script src="https://unpkg.com/vue-select@latest"></script> -->
+
 </head>
 <body class="sidebar-dark">
   <div class="container-scroller">
@@ -47,7 +83,7 @@
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
               <span class="count"></span>
@@ -94,22 +130,25 @@
                 </div>
               </a>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="<?= base_url('assets');?>/images/user 2.png" alt="profile"/>
+              <p><?php echo $session_name;?></p>
+              <!-- <i class="mdi mdi-arrow-down-drop-circle"></i> -->
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a class="dropdown-item" href="<?= base_url('Auth/logout')?>">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
             </div>
           </li>
+          
           
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -121,7 +160,7 @@
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
-        <div id="settings-trigger"><i class="ti-settings"></i></div>
+        <!-- <div id="settings-trigger"><i class="ti-settings"></i></div> -->
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
@@ -149,7 +188,22 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+
           <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="ti-announcement menu-icon"></i>
+              <span class="menu-title">Spam Report</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="ti-wheelchair menu-icon"></i>
+              <span class="menu-title">Incident List Report</span>
+            </a>
+          </li>
+          
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">UI Elements</span>
@@ -162,7 +216,7 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="icon-columns menu-icon"></i>
@@ -224,19 +278,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-              <i class="icon-ban menu-icon"></i>
-              <span class="menu-title">Error pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="error">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-              </ul>
-            </div>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="pages/documentation/documentation.html">
               <i class="icon-paper menu-icon"></i>
@@ -274,13 +316,14 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="<?=base_url('assets');?>/vendors/js/vendor.bundle.base.js"></script>
+  
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <script src="<?=base_url('assets');?>/vendors/chart.js/Chart.min.js"></script>
   <script src="<?=base_url('assets');?>/vendors/datatables.net/jquery.dataTables.js"></script>
   <script src="<?=base_url('assets');?>/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
   <script src="<?=base_url('assets');?>/js/dataTables.select.min.js"></script>
+  <!-- <script src="<?=base_url('assets');?>/vendors/select2/select2.min.js"></script>  -->
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->
@@ -293,7 +336,15 @@
   <!-- Custom js for this page-->
   <script src="<?=base_url('assets');?>/js/dashboard.js"></script>
   <script src="<?=base_url('assets');?>/js/Chart.roundedBarCharts.js"></script>
+  <!-- <script src="<?=base_url('assets');?>/js/select2.js"></script> -->
   <!-- End custom js for this page-->
+
+  <script src="<?=base_url('assets');?>/vendors/select2/select2.min.js"></script>
+  <script src="<?=base_url('assets');?>/js/select2.js"></script>
+
+  <script src="<?=base_url('assets');?>/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  
+  
 </body>
 
 </html>

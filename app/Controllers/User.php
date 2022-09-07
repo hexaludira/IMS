@@ -14,7 +14,11 @@ class User extends BaseController
 
 	public function index()
 	{
-		$data['page'] = 'incident_list';
+		$data = array (
+			'page' => 'incident_list',
+			'session_name' => $this->session->get('username')
+		);
+
 		if(!$this->session->has('isLogin')){
 			return redirect()->to(base_url('Auth/login'));
 		}

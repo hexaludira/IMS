@@ -3,7 +3,7 @@
 use CodeIgniter\Controller;
 use App\Models\user_model;
 
-class Auth extends Controller
+class Auth extends BaseController
 {
 	public function __construct()
 	{
@@ -11,7 +11,7 @@ class Auth extends Controller
 
 		$this->validation = \Config\Services::validation();
 
-		$this->session = \Config\Services::session();
+		//$this->session = \Config\Services::session();
 
 	}
 
@@ -31,18 +31,46 @@ class Auth extends Controller
 	}
 
 	public function valid_register(){
-		$data = $this->request->getPost();
+		
 
-		// $this->validation->run($data, base_url('Auth/register'));
+		//$this->validation->run($data, 'register');
 
-		// $errors = $this->validation->getErrors();
+		//$errors = $this->validation->getErrors();
+
 
 		// if($errors) {
 		// 	session()->setFlashdata('error', $errors);
 		// 	return redirect()->to(base_url('Auth/register'));
 		// }
 
-		$salt = uniqid('', true);
+		if (!$this->validate([
+			'username' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => '{field} tidak boleh kosong'
+				]
+			],
+			'divisi' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => '{field} tidak boleh kosong'
+				]
+			],
+			'password' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => '{field} tidak boleh kosong'
+				]
+			]
+		])) {
+			//echo view("vue3");
+			session()->setFlashdata('error', $this->validator->listErrors());
+			return redirect()->back()->withInput();
+		} else {
+
+			$data = $this->request->getPost();
+			
+			$salt = uniqid('', true);
 
 		//gabung password dengan salt
 		$password = md5($data['password']).$salt;
@@ -61,6 +89,9 @@ class Auth extends Controller
 		session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan Login');
 
 		return redirect()->to(base_url('Auth/login'));
+		};
+
+		
 	}
 
 	public function valid_login(){
@@ -71,8 +102,8 @@ class Auth extends Controller
 
 		if($user){
 			if($user['user_password'] != md5($data['password']).$user['salt']){
-				session()->setFlashData('password', $user['salt']);
-				return redirect()->to(base_url('Auth/login'));
+				session()->setFlashData('password', 'Password salah');
+				return redirect()->to('Auth/login');
 			}
 			else {
 				$sessLogin = [
@@ -82,18 +113,19 @@ class Auth extends Controller
 				];
 
 				$this->session->set($sessLogin);
-				return redirect()->to(base_url('User'));
+				return redirect()->to('User');
 				}
 			}
 			else {
 				session()->setFlashdata('username', 'Username tidak ditemukan');
-				return redirect()->to(base_url('Auth/login'));
+				//return redirect()->to(base_url('Auth/login'));
+				return redirect()->to('Auth/login');
 			}
 		}
 
 	public function logout(){
 		$this->session->destroy();
-		return redirect()->to('login');
+		return redirect()->to(base_url('Auth/login'));
 	}
 
 	// public function auth(){

@@ -51,7 +51,7 @@
               <?php } ?>
               
               <form class="pt-3" method="POST" action="<?= base_url('Auth/valid_login')?>">
-                <?= base_url('Auth/valid_login')?>
+                <!-- <?= base_url('Auth/valid_login')?> -->
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="username" required>
                 </div>

@@ -31,15 +31,27 @@
               </div>
               <h4>Hari gini belum punya akun?</h4>
               <h6 class="font-weight-light">Ayo daftar lurr...</h6>
+              
+              <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4>Periksa Entrian Form</h4>
+                        </hr />
+                        <?php echo session()->getFlashdata('error'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
               <form method="POST" class="pt-3" action="<?= base_url('Auth/valid_register')?>">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" name="username" required>
+                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" name="username">
                 </div>
                 <!-- <div class="form-group">
                   <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
                 </div> -->
+                
                 <div class="form-group">
-                  <select class="form-control form-control-lg" id="exampleFormControlSelect2" name="divisi">
+                  <select class="form-control form-control-lg" id="exampleFormControlSelect2" name="divisi" >
                     <option value="" disabled selected>Pilih divisi</option>
                     <option value="Administrasi">Administrasi</option>
                     <option value="Infra">Infra</option>

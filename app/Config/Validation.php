@@ -40,4 +40,26 @@ class Validation
     //--------------------------------------------------------------------
     // Rules
     //--------------------------------------------------------------------
+
+    public $register = [
+        'username' => 'required|alpha_numeric|is_unique[user.username]',
+        'divisi' => 'required',
+        'password' => 'required'
+
+    ];
+
+    public $register_errors = [
+        'username' => [
+            'alpha_numeric' => 'Username hanya boleh mengandung huruf dan angka',
+            'is_unique' => 'Username sudah dipakai',
+            'required' => 'Username tidak boleh kosong'
+        ],
+        'divisi' => [
+            'required' => 'Divisi harus dipilih'
+        ],
+        'password' => [
+            'required' => 'Password tidak boleh kosong' 
+        ]
+
+    ];
 }

@@ -29,7 +29,11 @@ class Home extends BaseController
         echo view('vue3', $data);
     }
 
-    
+    public function coba_form()
+    {   
+        $data['page'] = 'coba_form';
+        echo view('layout', $data);
+    }
 
     public function incident_list()
     {
