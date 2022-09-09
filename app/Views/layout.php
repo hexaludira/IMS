@@ -40,6 +40,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/microplugin/0.0.3/microplugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.6/js/selectize.min.js"></script>
 
+  <!-- <script src="<?=base_url('assets');?>/ckeditor/ckeditor.js"></script> -->
+  <script src="<?=base_url('assets');?>/tinymce/tinymce.min.js"></script>
+
+
   
   <!-- <link href="<?= base_url('assets');?>/vendors/select2-bootstrap-theme/select2-bootstrap.min.css" rel="stylesheet" />
   <link href="<?= base_url('assets');?>/vendors/select2/select2.min.css" rel="stylesheet" /> -->

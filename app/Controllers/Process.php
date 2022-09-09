@@ -5,6 +5,10 @@ use CodeIgniter\Controller;
 use App\Models\Incident_Model;
 
 class Process extends BaseController {
+	public function __construct(){
+		$this->incidentModel = new Incident_Model();
+	}
+
 	public function insert_incident() {
 		if(!$this->validate([
 			'incident_name' => [
@@ -52,9 +56,23 @@ class Process extends BaseController {
 			//proses ke DB
 			$data = $this->request->getPost();
 
-			$this->Incident_Model->save([
+			//if($data['incident_status'])
 
+			$this->incidentModel->save([
+				'incident_name' => $data['incident_name'],
+				'incident_date' => $data['incident_date'],
+				'incident_time_begin' => $data['incident_time_begin'],
+				'incident_time_end' => $data['incident_time_end'],
+				'incident_location' => $data['incident_location'],
+				'incident_detail' => $data['incident_detail'],
+				'incident_affected' => $data['incident_affected'],
+				'incident_remark' => $data['incident_remark'],
+				'incident_status' => $data['incident_status'],
 			]);
+
+
+
+			//session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan Login');
 		}
 	}
 
