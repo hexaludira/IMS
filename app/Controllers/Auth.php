@@ -100,7 +100,24 @@ class Auth extends BaseController
 		$user = $this->userModel->where('user_name', $data['username'])->first();
 		//$hash = md5($data['password']).$user['salt'];
 
-		if($user){
+		if (!$this->validate([
+			'username' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => '{field} tidak boleh kosong'
+				] 
+			],
+			'password' => [
+				'rules' => 'required',
+				'errors' => [
+					'required' => '{field} tidak boleh kosong'
+				]
+			]
+
+		])){
+			session()->setFlashdata('error', $this->validator->listErrors());
+			return redirect()->back()->withInput();
+		} else if($user){
 			if($user['user_password'] != md5($data['password']).$user['salt']){
 				session()->setFlashData('password', 'Password salah');
 				return redirect()->to('Auth/login');

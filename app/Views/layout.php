@@ -138,7 +138,7 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="<?= base_url('assets');?>/images/user 2.png" alt="profile"/>
-              <p><?php echo $session_name;?></p>
+              <p><?php //echo $session_name;?></p>
               <!-- <i class="mdi mdi-arrow-down-drop-circle"></i> -->
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">

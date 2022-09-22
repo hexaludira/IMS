@@ -49,14 +49,25 @@
               <?php if($login) { ?>
                 <p style="color:green"><?= $login ?></p>
               <?php } ?>
+
+              <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4>Periksa Entrian Form</h4>
+                        </hr />
+                        <?php echo session()->getFlashdata('error'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
               
               <form class="pt-3" method="POST" action="<?= base_url('Auth/valid_login')?>">
                 <!-- <?= base_url('Auth/valid_login')?> -->
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="username" required>
+                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="username">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password" required>
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
                 </div>
                 <div class="mt-3">
                   <button type="submit" name='login' class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >MASUK</button>
@@ -89,11 +100,13 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="<?=base_url('assets');?>/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
+
   <script src="<?=base_url('assets');?>/js/off-canvas.js"></script>
   <script src="<?=base_url('assets');?>/js/hoverable-collapse.js"></script>
   <script src="<?=base_url('assets');?>/js/template.js"></script>

@@ -14,7 +14,7 @@
                 <?php endif; ?>
     <div class="card">
       <div class="card-body">
-          <form class="forms-sample" id="app" method="POST" action="<?= base_url('Process/insert_incident');?>">
+          <form class="forms-sample" id="app" method="POST" action="<?= base_url('Process/insert_incident');?>" enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -23,8 +23,9 @@
                 </div>
                 <div class="form-group">
                   <label><h4>Date</h4></label>
-                  <!-- <input type="text" class="form-control" id="incident_date" placeholder="dd/mm/yyyy"> -->
-                  <vuejs-datepicker input-class="form-control" placeholder="dd mm yyyy" name="incident_date" typeable value="<?php date_default_timezone_set("Asia/Jakarta");echo date("m d Y");?>"></vuejs-datepicker>
+                 <input type="date" name="incident_date" class="form-control" placeholder="<?php date_default_timezone_set("Asia/Jakarta");echo date("m d Y");?>">
+
+                  <!-- <vuejs-datepicker input-class="form-control" type="text" placeholder="dd mm yyyy" name="incident_date" typeable value="<?php date_default_timezone_set("Asia/Jakarta");echo date("m d Y");?>"></vuejs-datepicker> -->
                 </div>
                 <div class="form-group">
                   <!-- <vue-timepicker name="incident_time">ddada</vue-timepicker> -->
@@ -62,6 +63,16 @@
                 <div class="form-group">
                   <label><h4>Affected User</h4></label>
                   <input type="text" class="form-control" name="incident_affected" placeholder="Ex: SEA/ Cell A01">
+                </div>
+                <div class="form-group">
+                  <label><h4>Picture</h4></label>
+                  <input type="file" class="form-control file-upload-info" accept="image/*" onchange="updatePreview(this, 'image-preview')" name="incident_picture">
+                  <!-- <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-primary" type="button">Choose File</button>
+                  </span> -->
+                </div>
+                <div class="form-group">
+                  <img id="image-preview" src="https://www.tutsmake.com/wp-content/uploads/2019/01/no-image-tut.png" class="" width="200" height="150"/>
                 </div>
                 <div class="form-group">
                   <label><h4>Remark</h4></label>
@@ -102,25 +113,39 @@
 
 <script>
 
+  // var app = new Vue({
+  //   el: '#app',
+  //   components: {
+  //     vuejsDatepicker,
+      
+  //   }
+
+  // });
 
   
-  var app = new Vue({
-    el: '#app',
-    components: {
-      vuejsDatepicker,
-      
-    }
 
-  });
+  //preview gambar
+  function updatePreview(input, target) {
+    let file = input.files[0];
+    let reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      let img = document.getElementById(target);
+      img.src = reader.result;
+    }
+  }
 
   $(document).ready(function() {
     $("#location").selectize({
       options: [
-        {series: 'main_office', value: 1, name: "IT"},
-        {series: 'main_office', value: 2, name: "Development"},
-        {series: 'main_office', value: 3, name: "Marketing"},
-        {series: 'main_office', value: 4, name: "Accounting"},
-        {series: 'main_office', value: 5, name: "HRD/ GA"}
+        {series: 'main_office', value: 'IT', name: "IT"},
+        {series: 'main_office', value: 'Development', name: "Development"},
+        {series: 'main_office', value: 'Marketing', name: "Marketing"},
+        {series: 'main_office', value: 'Accounting', name: "Accounting"},
+        {series: 'main_office', value: 'HRD/ GA', name: "HRD/ GA"},
+        {series: 'produksi', value: 'Gedung A', name: "Gedung A"},
+        {series: 'produksi', value: 'Gedung B', name: "Gedung B"}
       ],
       optgroups: [
         {value: 'main_office', label: 'Main Office'},

@@ -42,6 +42,13 @@ class Home extends BaseController
         echo view('layout', $data);
     }
 
+    public function incident_all()
+    {
+
+        $data['page'] = 'incident_all';
+        echo view('layout', $data);
+    }
+
     public function login()
     {
         echo view('login');
